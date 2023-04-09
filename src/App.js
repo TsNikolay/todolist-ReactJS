@@ -1,6 +1,6 @@
 import React from "react";
 import TodoList from "./Todo/TodoList";
-
+import Context from "./context";
 
 function App() {
     const [todoList, setTodos] = React.useState([
@@ -18,11 +18,17 @@ function App() {
             })
         )
     }
+
+    function removeTodo(id){
+        setTodos(todoList.filter(todo => todo.id !== id))
+    }
     return (
+        <Context.Provider value={{removeTodo}}>
         <div className="wrapper">
-            <h1>Hello Mykola</h1>
+            <h1>My TodoList</h1>
             <TodoList tasks={todoList} onSwitch={switchTodo}/>
-        </div>);
+        </div>
+        </Context.Provider>);
 }
 
 export default App;

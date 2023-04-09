@@ -23,10 +23,17 @@ const styles = {
 }
 
 function TodoItem(props) {
+    const classes = [];
+    if (props.task.completed) {
+        classes.push('done')
+    }
     return (
         <li style={styles.li}>
-            <span>
-                <input type="checkbox" style={styles.input}/>
+            <span className={classes.join(' ')}>
+                <input type="checkbox"
+                       style={styles.input}
+                       onChange={() => props.onChange(props.task.id)}
+                       checked={props.task.completed}/>
                 <strong>{props.index + 1}</strong>
                 &nbsp;
                 {props.task.title}
@@ -38,7 +45,8 @@ function TodoItem(props) {
 
 TodoItem.propTypes = {
     task: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired
+    index: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired
 }
 
 export default TodoItem
